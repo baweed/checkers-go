@@ -1,0 +1,321 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.room-controls {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#roomId {
+    padding: 8px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+#joinRoom {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#joinRoom:hover {
+    background-color: #45a049;
+}
+
+#roomStatus {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#gameInfo {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+    width: 480px;
+    height: 480px;
+    margin: 0 auto;
+    border: 2px solid #333;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cell.light {
+    background-color: #f0d9b5;
+}
+
+.cell.dark {
+    background-color: #b58863;
+}
+
+.piece {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #000;
+}
+
+.piece.black {
+    background-color: #333;
+}
+
+.piece.white {
+    background-color: #fff;
+}
+
+.piece.black.king::after {
+    content: "♔";
+    font-size: 30px;
+    line-height: 50px;
+    color: gold;
+}
+
+.piece.white.king::after {
+    content: "♔";
+    font-size: 30px;
+    line-height: 50px;
+    color: gold;
+}
+
+.selected {
+    box-shadow: 0 0 0 3px yellow inset;
+}
+
+.captured {
+    animation: captureAnimation 0.3s ease-out;
+}
+
+@keyframes captureAnimation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+#game-info.error {
+    color: red;
+    animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.connecting {
+    color: orange;
+}
+
+.connected {
+    color: green;
+}
+
+.players-count {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.players-count.ready {
+    background: #4CAF50;
+}
+
+.selected {
+    box-shadow: 0 0 0 3px gold;
+}
+
+.waiting {
+    cursor: wait;
+    opacity: 0.9;
+}
+
+.error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.players-display {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.players-display.waiting {
+    background: #FFA500;
+    color: white;
+}
+
+.players-display.ready {
+    background: #4CAF50;
+    color: white;
+}
+
+#board.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#board:not(.active) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.players-waiting {
+    background: #FFA500;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.players-ready {
+    background: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+#board {
+    transition: opacity 0.3s;
+}
+
+#game-info {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Состояния подключения */
+.connected { color: green; }
+.disconnected { color: gray; }
+.error { color: red; }
+
+/* Индикатор игроков */
+.players-waiting {
+    background: #FFA500;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.players-ready {
+    background: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+/* Сообщения */
+.error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.game-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+/* Анимация взятия */
+.captured {
+    animation: captureAnimation 0.3s ease-out;
+}
+
+@keyframes captureAnimation {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.waiting {
+    cursor: wait;
+    opacity: 0.8;
+}
